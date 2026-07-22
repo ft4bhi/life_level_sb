@@ -1,5 +1,5 @@
 "use client"
-import {navigate} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
 import api from "../api";
 import {ACCESS_TOKEN, REFRESH_TOKEN} from "../constans";
@@ -12,7 +12,7 @@ function ProtectedRoute({children}){
     },[]);
 
     const refreshToken = async()=>{
-        const res = localStorage.getItem(REFRESH_TOKEN);
+        const refreshToken = localStorage.getItem(REFRESH_TOKEN);
         try{
             const res = await api.post("/api/token/refresh/",{ 
                 refresh: refreshToken,
@@ -37,7 +37,7 @@ function ProtectedRoute({children}){
         }
         const decoded = jwtDecode(accessToken);
         const accessTokenExpiration = decoded.exp;
-        const now = Date().getTime() / 1000;
+        const now = Date.now() / 1000;
 
         if(accessTokenExpiration < now){
             await refreshToken();
@@ -52,9 +52,8 @@ function ProtectedRoute({children}){
         return <div>loading...</div>
     }
 
-    return isAuthorized ? children : <navigate to ="/login"/>
+    return isAuthorized ? children : <Navigate to ="/login"/>
 
-    
- 
+
 }
 export default ProtectedRoute

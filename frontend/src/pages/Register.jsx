@@ -1,8 +1,11 @@
-import React from 'react'
+import Form from "../components/Form"
+import '../styles/Form.css'
 
 function Register() {
   return (
-    <div>Register</div>
+    <div className="register-page">
+      <Form route="/api/user/register/" method="register" />
+    </div>
   )
 }
 
